@@ -19,19 +19,16 @@
   <script>
     /** 使用闭包执行jq*/
     (function() {
-      fetchData(
-        "get",
-        "/getMsg",
-        {},
-        function(data) {
-          console.log("fetch success!");
-          console.log(data);
-          document.getElementById("msgDiv").innerHTML = data;
-        },
-        function(error) {
-          console.log("fetch error:" + error);
-        }
-      );
+      var onSuccess = function(msg) {
+        console.log("fetch success!");
+        console.log(msg);
+        document.getElementById("msgDiv").innerHTML = msg;
+      };
+      var onError = function(error) {
+        console.log("fetch error:" + error);
+      };
+
+      fetchData("get", "/getMsg", {}, onSuccess, onError);
     })();
   </script>
 </html>

@@ -16,14 +16,15 @@
   </body>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
+    console.dir(axios);
     /** 使用闭包执行jq*/
     (function() {
       axios
         .get("/getMsg")
         .then(function(response) {
           console.log(response);
-
-          document.getElementById("msgDiv").innerHTML = response;
+          //axios返回的自己封装的对象，后台返回的数据都在这个对象的data属性中
+          document.getElementById("msgDiv").innerHTML = response.data;
         })
         .catch(function(error) {
           console.log(error);

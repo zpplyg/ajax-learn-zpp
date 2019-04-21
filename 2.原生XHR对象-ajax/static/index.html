@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
   </head>
-  <body>  
+  <body>
     <div
       id="msgDiv"
       style="color:red;width:200px;height:100px;border:1px  dashed #333;"
@@ -15,14 +15,17 @@
     </div>
   </body>
   <script>
+    //模拟登陆
+    localStorage.setItem("token", "fdjsaklfjewqruejoiuo");
+    //使用xhr对象请求后端接口
     var xhr = new XMLHttpRequest();
     xhr.open("get", "/getMSG", true);
     // 接收返回值
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-         var msg = xhr.responseText;
-         document.getElementById('msgDiv').innerHTML=msg;
+          var msg = xhr.responseText;
+          document.getElementById("msgDiv").innerHTML = msg;
         }
       }
     };
@@ -35,7 +38,8 @@
       }
       return oStr;
     })(postData);
-    // 设置请求头
+    // 设置请求头form表单application/x-www-form-urlencoded
+    //复杂类型比如数组类型参数需要设置为application/json
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // 异常处理
     xhr.onerror = function() {

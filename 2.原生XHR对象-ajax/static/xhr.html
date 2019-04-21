@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>xhr对象详解</title>
+  </head>
+  <body>
+    <img src="./xhr.jpeg" alt="图片" style="width:90%;height:90%;" />
+    <script>
+      //创建xhr对象
+      var xhr = new XMLHttpRequest();
+      //打印xhr对象中包含哪些概念如上图
+      console.dir(xhr);
+      //发送请求用xhr.open('方法GET||POST','资源地址URL','同步或者异步')
+      var token = localStorage.getItem("token");
+      xhr.open("GET", "./1.txt?name=ppx&age=18", true);
+      //提交请求给服务器     xhr.send();
+      //修改请求头setRequestHeader('key','value')
+      //目前系统的认证方式流行的是token验证方式，一般都会把token这个作为参数传给后端，
+      //后端用token去验证这个人是不是登录状态，如果不是登录状态就剔除重新登录，
+      //此模式，需要每次在请求时候拼接token，比较麻烦，所以直接拼接在requestHeader上，不必每次都修改自定义的参数
+      xhr.setRequestHeader("ppx", "ppx is a dog");
+      xhr.setRequestHeader("token", token);
+      xhr.send();
+      //监听onreadystatechange事件，如果请求完成调用这个方法，参数请求完成时后台返回的数据
+    //      readyState: 存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+    // 0: 请求未初始化
+    // 1: 服务器连接已建立
+    // 2: 请求已接收
+    // 3: 请求处理中
+    // 4: 请求已完成，且响应已就绪
+//status:200: "OK" 
+//       404: 未找到页面
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var result = xhr.responseText;
+          console.log(result);
+          
+        }
+      };
+      //abort终止请求
+      // xhr.abort();
+    </script>
+  </body>
+</html>
